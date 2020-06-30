@@ -1,0 +1,28 @@
+name: key-protect
+type: terraform
+description: Module to provision Key Protect
+tags:
+    - tools
+    - vault
+versions:
+- platforms: []
+  dependencies:
+    - id: resource_group
+      refs:
+        - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+          version: ">= 2.1.0"
+  variables:
+    - name: resource_group_name
+      moduleRef:
+        id: resource_group
+        output: name
+    - name: region
+      scope: global
+    - name: name_prefix
+      scope: global
+    - name: name
+      scope: ignore
+    - name: ibmcloud_api_key
+      scope: global
+    - name: private_endpoint
+      scope: global

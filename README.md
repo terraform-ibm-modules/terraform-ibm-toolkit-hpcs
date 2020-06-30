@@ -1,12 +1,12 @@
-# Watson Studio terraform module
+# Key Protect terraform module
 
-Provisions an instance of Watson Studio in the account.
+Provisions an instance of Key Protect in the account.
 
 ## Example usage
 
 ```terraform-hcl
-module "dev_infrastructure_watsonstudio" {
-  source = "github.com/ibm-garage-cloud/terraform-service-watsonstudio?ref=v1.0.0"
+module "dev_infrastructure_keyprotect" {
+  source = "github.com/ibm-garage-cloud/terraform-ibm-key-protect?ref=v1.0.0"
 
   resource_group_name = module.dev_cluster.resource_group_name
   resource_location   = module.dev_cluster.region
@@ -15,6 +15,6 @@ module "dev_infrastructure_watsonstudio" {
   namespace_count     = 0
   name_prefix         = var.name_prefix
   tags                = []
-  plan                = "standard-v1"
+  plan                = "tiered-pricing"
 }
 ```
