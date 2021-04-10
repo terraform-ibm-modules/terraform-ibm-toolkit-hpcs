@@ -44,7 +44,7 @@ variable "number_of_crypto_units" {
 
 variable "provision" {
   type        = bool
-  description = "Flag indicating that key-protect instance should be provisioned"
+  description = "Flag indicating that hpcs instance should be provisioned"
   default     = true
 }
 

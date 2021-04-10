@@ -5,7 +5,7 @@ Provisions an instance of hpcs in the account.
 ## Example usage
 
 ```terraform-hcl
-module "dev_infrastructure_keyprotect" {
+module "dev_infrastructure_hpcs" {
   source = "github.com/ibm-garage-cloud/terraform-ibm-key-hpcs?ref=v1.0.0"
 
   resource_group_name = module.dev_cluster.resource_group_name
