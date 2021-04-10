@@ -1,4 +1,4 @@
-module "dev_key_protect" {
+module "dev_hpcs" {
   source = "./module"
 
   resource_group_name      = module.resource_group.name

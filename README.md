@@ -1,12 +1,12 @@
-# Key Protect terraform module
+# HPCS terraform module
 
-Provisions an instance of Key Protect in the account.
+Provisions an instance of hpcs in the account.
 
 ## Example usage
 
 ```terraform-hcl
 module "dev_infrastructure_keyprotect" {
-  source = "github.com/ibm-garage-cloud/terraform-ibm-key-protect?ref=v1.0.0"
+  source = "github.com/ibm-garage-cloud/terraform-ibm-key-hpcs?ref=v1.0.0"
 
   resource_group_name = module.dev_cluster.resource_group_name
   resource_location   = module.dev_cluster.region
@@ -15,6 +15,10 @@ module "dev_infrastructure_keyprotect" {
   namespace_count     = 0
   name_prefix         = var.name_prefix
   tags                = []
-  plan                = "tiered-pricing"
+  plan                = "standard"
+  service_endpoints      = var.service_endpoints
+  number_of_crypto_units = var.number_of_crypto_units
 }
 ```
+
+
