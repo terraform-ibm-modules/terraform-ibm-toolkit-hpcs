@@ -1,0 +1,42 @@
+id: github.com/cloud-native-toolkit/terraform-ibm-hpcs
+name: key-protect
+type: terraform
+description: Module to provision Key Protect
+tags:
+  - tools
+  - vault
+versions:
+  - platforms: []
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: ">= 2.1.0"
+    variables:
+      - name: resource_group_name
+        moduleRef:
+          id: resource_group
+          output: name
+        type: string
+      - name: region
+        scope: global
+        type: string
+      - name: name_prefix
+        scope: global
+        type: string
+      - name: name
+        scope: ignore
+        type: string
+      - name: ibmcloud_api_key
+        scope: global
+        type: string
+      - name: private_endpoint
+        scope: global
+        type: string
+      - name: tags
+        type: string
+      - name: plan
+        type: string
+      - name: provision
+        type: string
+    version: v0.0.0
