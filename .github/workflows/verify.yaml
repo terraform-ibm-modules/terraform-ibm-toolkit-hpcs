@@ -35,6 +35,7 @@ jobs:
         run: |
           mkdir /tmp/workspace
           cp ./test/stages/* /tmp/workspace
+          ln -s ${PWD} /tmp/workspace/module
           cd /tmp/workspace
           terraform init
 
