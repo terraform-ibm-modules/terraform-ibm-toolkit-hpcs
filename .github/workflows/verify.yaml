@@ -38,6 +38,7 @@ jobs:
           ln -s ${PWD} /tmp/workspace/module
           cd /tmp/workspace
           terraform init
+          terraform plan
 
   release:
     #    if: ${{ github.event_name == 'push' }}
