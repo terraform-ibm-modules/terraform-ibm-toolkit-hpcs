@@ -33,9 +33,9 @@ jobs:
       # Just do a terraform init to validate the basic structure of the module
       - name: Terraform init
         run: |
-          mkdir ./workspace
-          cd ./workspace
-          cp ../test/stages/* .
+          mkdir /tmp/workspace
+          cp ./test/stages/* /tmp/workspace
+          cd /tmp/workspace
           terraform init
 
   release:
