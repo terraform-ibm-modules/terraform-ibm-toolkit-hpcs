@@ -1,6 +1,6 @@
-name: key-protect
+name: hpcs
 type: terraform
-description: Module to provision Key Protect
+description: Module to provision hpcs
 tags:
     - tools
     - vault

@@ -1,17 +1,11 @@
+variable "ibmcloud_api_key" {
+  type        = string
+  description = "The api key for IBM Cloud access"
+}
+
 variable "resource_group_name" {
   type        = string
   description = "Resource group where the cluster has been provisioned."
-}
-
-variable "region" {
-  type        = string
-  description = "Geographic location of the resource (e.g. us-south, us-east)"
-}
-
-variable "tags" {
-  type        = list(string)
-  description = "Tags that should be applied to the service"
-  default     = []
 }
 
 variable "name_prefix" {
@@ -20,15 +14,37 @@ variable "name_prefix" {
   default     = ""
 }
 
+variable "region" {
+  type        = string
+  description = "Geographic location of the resource (e.g. us-south, us-east)"
+}
+
 variable "plan" {
   type        = string
   description = "The type of plan the service instance should run under (tiered-pricing)"
-  default     = "tiered-pricing"
+  default     = "standard"
+}
+
+variable "private_endpoint" {
+  type        = string
+  description = "Flag indicating that the service should be created with private endpoints"
+  default     = "true"
+}
+
+variable "tags" {
+  type        = list(string)
+  description = "Tags that should be applied to the service"
+  default     = []
+}
+
+variable "number_of_crypto_units" {
+  type        = number
+  description = "No of crypto units that has to be attached to the instance."
 }
 
 variable "provision" {
   type        = bool
-  description = "Flag indicating that key-protect instance should be provisioned"
+  description = "Flag indicating that hpcs instance should be provisioned"
   default     = true
 }
 
@@ -38,13 +54,6 @@ variable "name" {
   default     = ""
 }
 
-variable "ibmcloud_api_key" {
-  type        = string
-  description = "The api key for IBM Cloud access"
-}
 
-variable "private_endpoint" {
-  type        = string
-  description = "Flag indicating that the service should be created with private endpoints"
-  default     = "true"
-}
+
+
