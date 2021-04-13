@@ -6,4 +6,5 @@ module "dev_hpcs" {
   name_prefix              = var.name_prefix
   provision                = true
   ibmcloud_api_key         = var.ibmcloud_api_key
+  number_of_crypto_units   = 2
 }
