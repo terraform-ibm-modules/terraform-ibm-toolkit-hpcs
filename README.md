@@ -23,7 +23,7 @@ module "dev_infrastructure_hpcs" {
 
 # Here are the steps to initialize(Key ceremony) of HPCS
 
-![HPCS initialization](/images/key ceramony.jpg?raw=true)
+![HPCS initialization](/images/key-ceramony.jpg "")
 ## Install TKE CLI plun-in
 ### ibmcloud plugin install tke
            or
