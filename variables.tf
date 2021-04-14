@@ -44,8 +44,8 @@ variable "number_of_crypto_units" {
 
 variable "provision" {
   type        = bool
-  description = "Flag indicating that hpcs instance should be provisioned"
-  default     = true
+  description = "Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist."
+  default     = false
 }
 
 variable "name" {
