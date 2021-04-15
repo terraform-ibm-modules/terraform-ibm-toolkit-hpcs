@@ -21,7 +21,7 @@ versions:
     - name: name_prefix
       scope: global
     - name: name
-      scope: ignore
+      scope: module
     - name: ibmcloud_api_key
       scope: global
     - name: private_endpoint
