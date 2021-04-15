@@ -25,6 +25,42 @@ versions:
         scope: global
         type: string
       - name: name
+        scope: module
+        type: string
+      - name: ibmcloud_api_key
+        scope: global
+        type: string
+      - name: private_endpoint
+        scope: global
+        type: string
+      - name: plan
+        type: string
+      - name: tags
+        type: string
+      - name: number_of_crypto_units
+        type: string
+      - name: provision
+        type: string
+    version: v1.1.1
+  - platforms: []
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: ">= 2.1.0"
+    variables:
+      - name: resource_group_name
+        moduleRef:
+          id: resource_group
+          output: name
+        type: string
+      - name: region
+        scope: global
+        type: string
+      - name: name_prefix
+        scope: global
+        type: string
+      - name: name
         scope: ignore
         type: string
       - name: ibmcloud_api_key
