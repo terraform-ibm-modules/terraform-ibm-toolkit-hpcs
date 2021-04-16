@@ -1,29 +1,87 @@
 id: github.com/cloud-native-toolkit/terraform-ibm-hpcs
 name: hpcs
 type: terraform
-description: Module to provision hpcs
+description: Module to provision Hyper Protect Crypto Service in an IBM Cloud account
 tags:
-    - tools
-    - vault
+  - tools
+  - vault
 versions:
-- platforms: []
-  dependencies:
-    - id: resource_group
-      refs:
-        - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-          version: ">= 2.1.0"
-  variables:
-    - name: resource_group_name
-      moduleRef:
-        id: resource_group
-        output: name
-    - name: region
-      scope: global
-    - name: name_prefix
-      scope: global
-    - name: name
-      scope: module
-    - name: ibmcloud_api_key
-      scope: global
-    - name: private_endpoint
-      scope: global
+  - platforms: []
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: ">= 2.1.0"
+    variables:
+      - name: resource_group_name
+        moduleRef:
+          id: resource_group
+          output: name
+        type: string
+        description: Resource group where the cluster has been provisioned.
+      - name: region
+        scope: global
+        type: string
+        description: Geographic location of the resource (e.g. us-south, us-east)
+      - name: name_prefix
+        scope: global
+        type: string
+        description: The prefix name for the service. If not provided it will default to the resource group name
+        default: ""
+        optional: true
+      - name: name
+        scope: module
+        type: string
+        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
+        default: ""
+        optional: true
+      - name: ibmcloud_api_key
+        scope: global
+        type: string
+        description: The api key for IBM Cloud access
+      - name: private_endpoint
+        scope: global
+        type: string
+        description: Flag indicating that the service should be created with private endpoints
+        default: "true"
+        optional: true
+      - name: plan
+        type: string
+        description: The type of plan the service instance should run under (tiered-pricing)
+        default: standard
+        optional: true
+      - name: tags
+        type: list(string)
+        description: Tags that should be applied to the service
+        default: []
+        optional: true
+      - name: number_of_crypto_units
+        type: number
+        description: No of crypto units that has to be attached to the instance.
+      - name: provision
+        type: bool
+        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        default: false
+        optional: true
+    version: v1.1.2
+  - platforms: []
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: ">= 2.1.0"
+    variables:
+      - name: resource_group_name
+        moduleRef:
+          id: resource_group
+          output: name
+      - name: region
+        scope: global
+      - name: name_prefix
+        scope: global
+      - name: name
+        scope: module
+      - name: ibmcloud_api_key
+        scope: global
+      - name: private_endpoint
+        scope: global
