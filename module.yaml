@@ -1,6 +1,6 @@
 name: hpcs
 type: terraform
-description: Module to provision hpcs
+description: Module to provision Hyper Protect Crypto Service in an IBM Cloud account
 tags:
     - tools
     - vault
