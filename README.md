@@ -21,4 +21,6 @@ module "dev_infrastructure_hpcs" {
 }
 ```
 
+## Post install steps
 
+Once a Hyper Protect Crypto Service has been provisioned, it must be initialized before it can be used. Currently, the initialization process must be performed manually. The following steps must be followed to complete the initialization - https://cloud.ibm.com/docs/hs-crypto?topic=hs-crypto-initialize-hsm
