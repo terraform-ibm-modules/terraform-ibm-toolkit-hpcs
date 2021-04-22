@@ -13,16 +13,17 @@ data "ibm_resource_group" "resource_group" {
 
 locals {
   name_prefix = var.name_prefix != "" ? var.name_prefix : var.resource_group_name
-  name        = var.name != "" ? var.name : "${replace(local.name_prefix, "/[^a-zA-Z0-9_\\-\\.]/", "")}-hpcs"
+  name        = var.name != "" ? var.name : "${replace(local.name_prefix, "/[^a-zA-Z0-9_\\-\\.]/", "")}-${var.label}"
   module_path = substr(path.module, 0, 1) == "/" ? path.module : "./${path.module}"
   service_endpoints = var.private_endpoint == "true" ? "private" : "public"
+  service     = "hs-crypto"
 }
 
 resource "ibm_resource_instance" "hpcs_instance" {
   count = var.provision ? 1 : 0
 
   name              = local.name
-  service           = "hs-crypto"
+  service           = local.service
   plan              = var.plan
   location          = var.region
   resource_group_id = data.ibm_resource_group.resource_group.id
@@ -47,5 +48,5 @@ data "ibm_resource_instance" "hpcs_instance" {
   name              = local.name
   resource_group_id = data.ibm_resource_group.resource_group.id
   location          = var.region
-  service           = "hs-crypto"
+  service           = local.service
 }

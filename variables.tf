@@ -55,6 +55,12 @@ variable "name" {
   default     = ""
 }
 
+variable "label" {
+  type        = string
+  description = "The label that will be used to generate the name from the name_prefix."
+  default     = "hpcs"
+}
+
 
 
 
