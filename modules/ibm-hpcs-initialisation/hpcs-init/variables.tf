@@ -4,6 +4,11 @@
 #########################################################################################
 
 # Path to which CLOUDTKEFILES has to be exported
+variable "initialize" {
+  type        = bool
+  description = "Flag indicating that if user want to initialize the hpcs instance. If 'true' then the instance is expected to initialize."
+  default     = false
+}
 variable "tke_files_path" {
   type        = string
   description = "Path to which tke files has to be exported"

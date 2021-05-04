@@ -24,7 +24,7 @@ module "dev_infrastructure_hpcs" {
 ### Download JsonFile From COS
 ```hcl
 module "download_from_cos" {
-  source          = "github.com/slzone/terraform-ibm-hpcs/modules/ibm-hpcs-initialisation/download-from-cos"
+  source          = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/download-from-cos"
   api_key         = var.api_key
   cos_crn         = var.cos_crn
   endpoint        = var.endpoint
@@ -36,7 +36,8 @@ module "download_from_cos" {
 ```hcl
 
 module "hpcs_init" {
-  source             = "github.com/slzone/terraform-ibm-hpcs/modules/ibm-hpcs-initialisation/hpcs-init"
+  initialize         = var.initialize
+  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/hpcs-init"
   depends_on         = [module.download_from_cos]
   tke_files_path     = var.tke_files_path
   input_file_name    = var.input_file_name
@@ -47,7 +48,7 @@ module "hpcs_init" {
 ### Upload TKE Files to COS
 ```hcl
 module "upload_to_cos" {
-  source             = "github.com/slzone/terraform-ibm-hpcs/modules/ibm-hpcs-initialisation/upload-to-cos"
+  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/upload-to-cos"
   depends_on         = [module.hpcs_init]
   api_key            = var.api_key
   cos_crn            = var.cos_crn
@@ -62,14 +63,47 @@ module "upload_to_cos" {
 
 ```hcl
 module "remove_tke_files" {
-  source             = "github.com/slzone/terraform-ibm-hpcs/modules/ibm-hpcs-initialisation/remove-tkefiles"
+  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/remove-tkefiles"
   depends_on         = [module.upload_to_cos]
   tke_files_path     = var.tke_files_path
   input_file_name    = var.input_file_name
   hpcs_instance_guid = data.ibm_resource_instance.hpcs_instance.guid
 }
 ```
-`
+### Apply HPCS Network type, Dual deletetion Authorization policy
+```hcl
+module "hpcs_policies" {
+  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/hpcs-policies"
+  depends_on         = [module.hpcs_init]
+  resource_group_name     = var.resource_group_name
+  service_name    = var.service_name
+  hpcs_instance_guid = data.ibm_resource_instance.hpcs_instance.guid
+  allowed_network_type = var.allowed_network_type
+  hpcs_port = var.hpcs_port
+  dual_auth_delete = var.dual_auth_delete
+  region = var.region
+}
+```
+### Create KMS root key along with key deletion and rotaion policy
+```hcl
+module "kms_key" {
+  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/ibm-hpcs-kms-key"
+  depends_on         = [module.hpcs_init]
+  name     = var.name
+  standard_key    = var.standard_key
+  instance_id = data.ibm_resource_instance.hpcs_instance.guid
+  force_delete = var.force_delete
+  endpoint_type = var.endpoint_type
+  payload = var.payload
+  encrypted_nonce = var.encrypted_nonce
+  iv_value = var.iv_value
+  expiration_date = var.expiration_date
+  interval_month = var.reginterval_monthion
+  dual_auth_delete = var.dual_auth_delete
+  region = var.region
+  hpcs_port = var.hpcs_port
+}
+```
 
 ### TBD
 __Add Attribution to IBM official terraform module code for HPCS initialization__

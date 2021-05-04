@@ -47,3 +47,28 @@ variable "force_delete" {
   default     = null
   type        = bool
 }
+
+# KMS key policies 
+
+variable "dual_auth_delete" {
+  description = "Dual auth deletion policy enabled or not"
+  default     = true
+  type        = bool
+}
+
+variable "interval_month" {
+  description = "Specifies the key rotation time interval in months, with a minimum of 1, and a maximum of 12"
+  type        = number
+  default     = 3
+}
+
+variable "region" {
+  default     = "us-south"
+  type        = string
+  description = "Location of HPCS Instance"
+}
+
+variable "hpcs_port" {
+  description = "HPCS service port"
+  type        = number
+}
