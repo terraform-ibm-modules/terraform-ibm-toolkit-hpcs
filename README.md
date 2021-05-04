@@ -7,10 +7,9 @@ Provisions an instance of hpcs in the account.
 ```terraform-hcl
 module "dev_infrastructure_hpcs" {
   # source = "github.com/ibm-garage-cloud/terraform-ibm-key-hpcs?ref=v1.0.0"
-  source = "github.com/slzone/terraform-ibm-hpcs"
-  resource_group_name = module.dev_cluster.resource_group_name
-  resource_location   = module.dev_cluster.region
-  cluster_id          = module.dev_cluster.id
+  source = "github.com/slzone/terraform-ibm-hpcs?ref=hpcs-init"
+  resource_group_name = var.resource_group_name
+  resource_location   = var.region
   namespaces          = []
   namespace_count     = 0
   name_prefix         = var.name_prefix
@@ -18,6 +17,7 @@ module "dev_infrastructure_hpcs" {
   plan                = "standard"
   service_endpoints      = var.service_endpoints
   number_of_crypto_units = var.number_of_crypto_units
+  provision = var.provision
 }
 ```
 
