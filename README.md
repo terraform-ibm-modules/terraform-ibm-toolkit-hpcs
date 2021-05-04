@@ -73,35 +73,35 @@ module "remove_tke_files" {
 ### Apply HPCS Network type, Dual deletetion Authorization policy
 ```hcl
 module "hpcs_policies" {
-  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/hpcs-policies"
-  depends_on         = [module.hpcs_init]
-  resource_group_name     = var.resource_group_name
-  service_name    = var.service_name
-  hpcs_instance_guid = data.ibm_resource_instance.hpcs_instance.guid
+  source               = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/hpcs-policies"
+  depends_on           = [module.hpcs_init]
+  resource_group_name  = var.resource_group_name
+  service_name         = var.service_name
+  hpcs_instance_guid   = data.ibm_resource_instance.hpcs_instance.guid
   allowed_network_type = var.allowed_network_type
-  hpcs_port = var.hpcs_port
-  dual_auth_delete = var.dual_auth_delete
-  region = var.region
+  hpcs_port            = var.hpcs_port
+  dual_auth_delete     = var.dual_auth_delete
+  region               = var.region
 }
 ```
 ### Create KMS root key along with key deletion and rotaion policy
 ```hcl
 module "kms_key" {
-  source             = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/ibm-hpcs-kms-key"
-  depends_on         = [module.hpcs_init]
-  name     = var.name
-  standard_key    = var.standard_key
-  instance_id = data.ibm_resource_instance.hpcs_instance.guid
-  force_delete = var.force_delete
-  endpoint_type = var.endpoint_type
-  payload = var.payload
-  encrypted_nonce = var.encrypted_nonce
-  iv_value = var.iv_value
-  expiration_date = var.expiration_date
-  interval_month = var.reginterval_monthion
+  source           = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/ibm-hpcs-kms-key"
+  depends_on       = [module.hpcs_init]
+  name             = var.name
+  standard_key     = var.standard_key
+  instance_id      = data.ibm_resource_instance.hpcs_instance.guid
+  force_delete     = var.force_delete
+  endpoint_type    = var.endpoint_type
+  payload          = var.payload
+  encrypted_nonce  = var.encrypted_nonce
+  iv_value         = var.iv_value
+  expiration_date  = var.expiration_date
+  interval_month   = var.reginterval_monthion
   dual_auth_delete = var.dual_auth_delete
-  region = var.region
-  hpcs_port = var.hpcs_port
+  region           = var.region
+  hpcs_port        = var.hpcs_port
 }
 ```
 
