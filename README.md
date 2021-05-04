@@ -6,7 +6,7 @@ Provisions an instance of hpcs in the account.
 
 ```hcl
 module "dev_infrastructure_hpcs" {
-  # source = "github.com/ibm-garage-cloud/terraform-ibm-key-hpcs?ref=v1.0.0"
+  # source = "github.com/ibm-garage-cloud/terraform-ibm-key-hpcs"
   source                 = "github.com/slzone/terraform-ibm-hpcs?ref=hpcs-init"
   resource_group_name    = var.resource_group_name
   resource_location      = var.region
