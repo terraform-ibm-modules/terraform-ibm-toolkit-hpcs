@@ -1,7 +1,7 @@
 .idea/
 *.iml
 .terraform
-.terraform/modules/*
+.terraform/modules
 .terraform/plugins
 terraform.tfstate
 terraform.tfstate.backup
