@@ -3,5 +3,5 @@
 # Copyright 2020 IBM
 #########################################################################################
 output "hpcs_init" {
-  value = null_resource.hpcs_init.id
+  value = var.initialize == false ? null : format("%v", null_resource.hpcs_init.*.id)
 }
