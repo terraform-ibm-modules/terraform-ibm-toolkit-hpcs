@@ -71,6 +71,8 @@ else:
 
     key_num = custom.get_keynum(sig_key_list)
 
+    print("-----key num-----" + key_num)
+
     # --------------------------------------------
     # Select signkeys 
     # --------------------------------------------

@@ -7,3 +7,4 @@ terraform.tfstate
 terraform.tfstate.backup
 varfile
 ../../terraform-ibm-hpcs/modules/ibm-hpcs-initialisation/*.tf
+../../packages/__pycache__/*

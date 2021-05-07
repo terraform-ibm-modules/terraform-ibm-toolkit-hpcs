@@ -1,0 +1,8 @@
+{
+    "admin_name": ["admin1", "admin2"],
+    "admin_password": ["Test1@123456", "Test2@123456"],
+    "sig_key_num": "2",
+    "threshold":"2",
+    "rev_threshold":"2"
+
+}
