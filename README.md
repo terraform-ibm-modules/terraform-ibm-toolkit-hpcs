@@ -45,7 +45,7 @@ module "download_from_cos" {
 ```
 ### Initialise HPCS instance using json file
 
-* Json file can be downloaded from COS bucket or locally provided as in this examaple [input.json] (https://github.com/slzone/terraform-ibm-hpcs/blob/hpcs-init/modules/ibm-hpcs-initialisation/input.json) file.
+* Json file can be downloaded from COS bucket or locally provided as in this examaple [input.json](https://github.com/slzone/terraform-ibm-hpcs/blob/hpcs-init/modules/ibm-hpcs-initialisation/input.json) file.
 
 ```hcl
 
