@@ -67,7 +67,7 @@ else:
     hpcs.crypto_unit_add(cu_num)
 
     # --------------------------------------------
-    # auto-init HPCS instance
+    # HPCS instance initialization with auto-init
     # --------------------------------------------
     auto_init = hpcs.auto_init(inst_num,threshold_value,rev_threshold_value,admin_num,admin1_name,admin1_password,admin2_name,admin2_password)
 
