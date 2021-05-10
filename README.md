@@ -30,6 +30,9 @@ module "dev_infrastructure_hpcs" {
 ```
 
 ### Download JsonFile From COS
+
+* This module can be used to download administrator credentials if present in COS bucket.
+
 ```hcl
 module "download_from_cos" {
   source          = "git::https://github.com/slzone/terraform-ibm-hpcs.git//modules/ibm-hpcs-initialisation/download-from-cos"
@@ -41,6 +44,9 @@ module "download_from_cos" {
 }
 ```
 ### Initialise HPCS instance using json file
+
+* Json file can be downloaded from COS bucket or locally provided as in this examaple [input.json] (https://github.com/slzone/terraform-ibm-hpcs/blob/hpcs-init/modules/ibm-hpcs-initialisation/input.json) file.
+
 ```hcl
 
 module "hpcs_init" {
