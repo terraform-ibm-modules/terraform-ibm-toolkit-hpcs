@@ -14,7 +14,7 @@ resource "null_resource" "hpcs_init" {
   provisioner "local-exec" {
     when    = create
     command = <<EOT
-    python ${path.module}/../../../modules/ibm-hpcs-initialisation/scripts/init.py
+    python ${path.module}/../../../modules/ibm-hpcs-initialisation/scripts/auto_init.py
         EOT
     environment = {
       CLOUDTKEFILES = var.tke_files_path
