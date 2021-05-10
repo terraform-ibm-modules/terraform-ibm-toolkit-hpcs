@@ -61,48 +61,51 @@ def sigkey_select(keynum,admin_password):
 
 def auto_init(inst_num,threshold_value,rev_threshold_value,admin_num,admin1_name,admin1_password,admin2_name,admin2_password):
     print("########### ibmcloud tke auto-init ########### \n")
-    # print(threshold_value)
-    # print(inst_num)
-    # print(rev_threshold_value)
-    # print(admin_num)
-    # print(admin1_name)
-    # print(admin1_password)
-    # print(admin2_name)
-    # print(admin2_password)
     child = pexpect.spawn('ibmcloud tke auto-init', encoding='utf-8')
+    print("Starting to expect")
     child.expect ('Enter the INSTANCE NUM of the service instance you want to initialize.')
+    print("Sending line", inst_num)
     child.sendline (inst_num)
-    # child.timeout=300
+    print("Starting to expect Ctrl-c")
     child.expect ('Press enter to continue or Ctrl-c to exit.')
+    print("Sending enter")
     child.sendline()
-    # child.timeout=300
+    print("Starting to expect signatures")
     child.expect (['Enter the number of signatures to be required on commands sent to the service instance.', 'This must be a number between 1 and 8.', 'To enforce dual control, this must be at least 2:'])
+    print("Sending line threshold_value:", threshold_value)
     child.sendline (threshold_value)
-    # child.timeout=300
     child.expect (['Enter the number of signatures to be required on commands to remove an administrator.', 'This must be a number between 1 and 8.', 'To enforce dual control, this must be at least 2:'])
+    print("Sending line rev_threshold_value:", rev_threshold_value)
     child.sendline (rev_threshold_value)
-    # child.timeout=300
-    # print(admin_num)
     child.expect ('Enter the number of administrators you want to install:')
+    print("Sending line admin_num:", admin_num)
     child.sendline (admin_num)
     child.timeout=300
     child.expect ('Enter an administrator name to be associated with the signature key:')
+    print("Sending line admin1_name...")
     child.sendline (admin1_name)
     child.timeout=300
     child.expect ('Enter a password to protect the signature key:')
+    print("Sending line admin1_password...")
     child.sendline (admin1_password)
     child.timeout=300
     child.expect ('Re-enter the password to confirm:')
+    print("ReSending line admin1_password...")
     child.sendline (admin1_password)
-    # child.timeout=300
     child.expect ('Enter an administrator name to be associated with the signature key:')
+    print("Sending line admin2_name...")
     child.sendline (admin2_name)
-    # child.timeout=300
     child.expect ('Enter a password to protect the signature key:')
+    print("Sending line admin2_password...")
     child.sendline (admin2_password)
-    # child.timeout=300
     child.expect ('Re-enter the password to confirm:')
+    print("ReSending line admin2_password...")
     child.sendline (admin2_password)
+    child.timeout=300
+    out = child.readlines()
+    auto_init = "".join(out)
+    print (auto_init)
+    return auto_init
 
 def admin_add(key_num,admin_password):
     print("########### ibmcloud tke cryptounit-admin-add ########### \n")

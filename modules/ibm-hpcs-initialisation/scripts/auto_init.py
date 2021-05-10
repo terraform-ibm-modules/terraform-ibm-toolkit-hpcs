@@ -20,7 +20,6 @@ os.system(run_command)
 out = subprocess.run(["cat", "./temp.txt"], capture_output=True)
 out_num = out.stdout.decode("utf-8")
 inst_num = str(out_num.strip())
-print(inst_num)
 deletetempfile = subprocess.run(["rm", "-r", "./temp.txt"], capture_output=True)
 
 # print(pexpect.run('ibmcloud iam oauth-tokens'))
@@ -30,7 +29,7 @@ try:
     with open(inputfile) as complex_data:
         d = complex_data.read()
         data = json.loads(d)
-        print(data)
+        # print(data)
 except Exception as error:
     print("[ERROR] Unable to read data from  input file", error)
 else:
@@ -43,17 +42,9 @@ else:
     admin2_name=str(data["admin_name"][1])
     admin2_password=str(data["admin_password"][1])
     admin_num=str(len(data["admin_name"]))
-    print("------")
-    print(admin_num)
     threshold_value = str(data["threshold"])
     rev_threshold_value = str(data["rev_threshold"])
-    print(admin1_name,admin1_password,admin2_name,admin2_password,admin_num,threshold_value,threshold_value)
-    # random_mk=[]
-    # custom_mk=[]
-    # if "random_mk" in data.keys():
-    #     random_mk=data["random_mk"]
-    # if "custom_mk" in data.keys():
-    #     custom_mk=data["custom_mk"]
+    
     # ----------------------------------------------------------------------------------------
     # Create custom directory in the output path provided inorder to avoid misplacement of data
     # ----------------------------------------------------------------------------------------
@@ -78,18 +69,6 @@ else:
     # --------------------------------------------
     # auto-init HPCS instance
     # --------------------------------------------
-    # auto_init = hpcs.auto_init(inst_num,threshold_value,rev_threshold_value)
-    # auto_init = hpcs.auto_init(inst_num,threshold_value,rev_threshold_value,admin_num,admin1_name,admin1_password,admin2_name,admin2_password)
-
-    print(inst_num)
-    print(threshold_value)
-    print(rev_threshold_value)
-    print(admin_num)
-    print(admin1_name)
-    print(admin1_password)
-    print(admin2_name)
-    print(admin2_password)
-
-    hpcs.auto_init(inst_num,threshold_value,rev_threshold_value,admin_num,admin1_name,admin1_password,admin2_name,admin2_password)
+    auto_init = hpcs.auto_init(inst_num,threshold_value,rev_threshold_value,admin_num,admin1_name,admin1_password,admin2_name,admin2_password)
 
     
