@@ -1,8 +1,16 @@
 # HPCS terraform module
 
-Provisions an instance of hpcs in the account.
+Provisions an instance of hpcs, initialize it with auto-init, upload signature keys to provided COS bucket in the account.
+
+## Assumptions / Requirements for initializing HPCS instance with provided Terraform automation
+
+* To initialize the HPCS instance using the HPCS init module, it is assume that the HPCS instance is being initialized first time after creating the HPCS instance.
+* There are no administrators are added and key signatures are created.
+* If the HPCS instance was initialized first with script / manually then this auto-init script would not able to initialize the HPCS instance, in this case user would able to run initilaization caommands manually.
 
 ## Example usage
+
+### Create HPCS instance
 
 ```hcl
 module "dev_infrastructure_hpcs" {
