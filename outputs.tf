@@ -1,10 +1,10 @@
 output "id" {
-  value       = data.ibm_resource_instance.hpcs_instance.id
+  value       = local.id
   description = "The id of the provisioned HPCS instance."
 }
 
 output "guid" {
-  value       = data.ibm_resource_instance.hpcs_instance.guid
+  value       = local.guid
   description = "The id of the provisioned HPCS instance."
 }
 
@@ -16,7 +16,7 @@ output "name" {
 
 output "crn" {
   description = "The id of the provisioned HPCS instance"
-  value       = data.ibm_resource_instance.hpcs_instance.id
+  value       = local.id
 }
 
 output "location" {
@@ -35,4 +35,10 @@ output "label" {
   description = "The label for the redis instance"
   value       = var.label
   depends_on = [data.ibm_resource_instance.hpcs_instance]
+}
+
+variable "skip" {
+  type        = bool
+  description = "Flag indicating that the logic should be skipped (i.e. don't do anything)"
+  default     = false
 }
