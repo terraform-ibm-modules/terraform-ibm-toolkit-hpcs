@@ -12,9 +12,9 @@ module "dev_hpcs" {
 
 resource null_resource print_urls {
   provisioner "local-exec" {
-    command = "echo 'Public url: ${module.dev_hpcs.public_url}'"
+    command = "echo -n '${module.dev_hpcs.public_url}' > .public_url"
   }
   provisioner "local-exec" {
-    command = "echo 'Private url: ${module.dev_hpcs.private_url}'"
+    command = "echo -n '${module.dev_hpcs.private_url}' > .private_url"
   }
 }
