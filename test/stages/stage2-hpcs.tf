@@ -9,3 +9,12 @@ module "dev_hpcs" {
   ibmcloud_api_key       = var.ibmcloud_api_key
   number_of_crypto_units = 2
 }
+
+resource null_resource print_urls {
+  provisioner "local-exec" {
+    command = "echo 'Public url: ${module.dev_hpcs.public_url}'"
+  }
+  provisioner "local-exec" {
+    command = "echo 'Private url: ${module.dev_hpcs.private_url}'"
+  }
+}

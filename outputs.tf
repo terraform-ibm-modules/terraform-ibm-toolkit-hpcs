@@ -39,12 +39,12 @@ output "label" {
 
 output "public_url" {
   description = "The public endpoint for the resource"
-  value       = "https://${var.region}.kms.cloud.ibm.com"
+  value       = local.public_url
   depends_on = [data.ibm_resource_instance.hpcs_instance]
 }
 
 output "private_url" {
   description = "The private endpoint for the resource"
-  value       = "https://private.${var.region}.kms.cloud.ibm.com"
+  value       = local.private_url
   depends_on = [data.ibm_resource_instance.hpcs_instance]
 }

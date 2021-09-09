@@ -19,6 +19,8 @@ locals {
   service     = "hs-crypto"
   id          = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].id : ""
   guid        = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].guid : ""
+  public_url  = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extendsions.endpoints.public : ""
+  private_url = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extendsions.endpoints.private : ""
 }
 
 resource ibm_resource_instance hpcs_instance {
