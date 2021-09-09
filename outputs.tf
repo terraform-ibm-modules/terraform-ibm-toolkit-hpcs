@@ -37,8 +37,14 @@ output "label" {
   depends_on = [data.ibm_resource_instance.hpcs_instance]
 }
 
-variable "skip" {
-  type        = bool
-  description = "Flag indicating that the logic should be skipped (i.e. don't do anything)"
-  default     = false
+output "public_url" {
+  description = "The public endpoint for the resource"
+  value       = local.public_url
+  depends_on = [data.ibm_resource_instance.hpcs_instance]
+}
+
+output "private_url" {
+  description = "The private endpoint for the resource"
+  value       = local.private_url
+  depends_on = [data.ibm_resource_instance.hpcs_instance]
 }

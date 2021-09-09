@@ -61,6 +61,8 @@ variable "label" {
   default     = "hpcs"
 }
 
-
-
-
+variable "skip" {
+  type        = bool
+  description = "Flag indicating that the logic should be skipped (i.e. don't do anything)"
+  default     = false
+}

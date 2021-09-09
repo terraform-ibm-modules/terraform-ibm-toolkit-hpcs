@@ -22,3 +22,12 @@ variable "name_prefix" {
   description = "Prefix name that should be used for the cluster and services. If not provided then resource_group_name will be used"
   default     = "cloud-native-test"
 }
+
+variable "hpcs_resource_group_name" {
+}
+
+variable "hpcs_region" {
+}
+
+variable "hpcs_name" {
+}
