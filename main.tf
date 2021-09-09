@@ -19,8 +19,8 @@ locals {
   service     = "hs-crypto"
   id          = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].id : ""
   guid        = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].guid : ""
-  public_url  = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extendsions.endpoints.public : ""
-  private_url = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extendsions.endpoints.private : ""
+  public_url  = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extensions["endpoints.public"] : ""
+  private_url = !var.skip ? data.ibm_resource_instance.hpcs_instance[0].extensions["endpoints.private"] : ""
 }
 
 resource ibm_resource_instance hpcs_instance {
@@ -45,7 +45,6 @@ resource ibm_resource_instance hpcs_instance {
   }
 }
 
-
 data ibm_resource_instance hpcs_instance {
   count             = var.skip ? 0 : 1
   depends_on        = [ibm_resource_instance.hpcs_instance]
@@ -54,10 +53,4 @@ data ibm_resource_instance hpcs_instance {
   resource_group_id = data.ibm_resource_group.resource_group.id
   location          = var.region
   service           = local.service
-}
-
-resource null_resource print_extensions {
-  provisioner "local-exec" {
-    command = "echo 'Extensions: ${jsonencode(data.ibm_resource_instance.hpcs_instance[0].extensions)}'"
-  }
 }
