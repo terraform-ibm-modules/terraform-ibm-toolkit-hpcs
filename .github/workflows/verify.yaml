@@ -13,12 +13,12 @@ jobs:
   verify:
     if: ${{ !contains( github.event.pull_request.labels.*.name, 'skip ci' ) }}
     runs-on: ubuntu-latest
-    container: quay.io/ibmgaragecloud/cli-tools:v0.12.0-lite
+    container: quay.io/ibmgaragecloud/cli-tools:v0.14
 
     strategy:
       matrix:
         platform: [ocp4_latest]
-    #      max-parallel: 1
+      #      max-parallel: 1
       fail-fast: false
 
     env:
@@ -29,19 +29,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      # Because of the cost of HPCS, we won't automate the testing of terraform apply and terraform destroy
-      # Just do a terraform init to validate the basic structure of the module
-      - name: Terraform init
-        run: |
-          mkdir /tmp/workspace
-          cp ./test/stages/* /tmp/workspace
-          ln -s ${PWD} /tmp/workspace/module
-          cd /tmp/workspace
-          terraform init
-          terraform plan
+      - name: Verify deploy on ${{ matrix.platform }}
+        uses: ibm-garage-cloud/action-module-verify-deploy@main
+        with:
+          clusterId: ${{ matrix.platform }}
+          validateDeployScript: .github/scripts/validate-deploy.sh
         env:
           TF_VAR_ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
           IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+
+      - name: Verify destroy on ${{ matrix.platform }}
+        uses: ibm-garage-cloud/action-module-verify-destroy@main
+        if: ${{ always() }}
+        with:
+          clusterId: ${{ matrix.platform }}
+        env:
+          TF_VAR_ibmcloud_api_key: ${{ secrets.IBMCLOUD_API_KEY }}
+          IBMCLOUD_API_KEY: ${{ secrets.IBMCLOUD_API_KEY }}
+
   release:
     #    if: ${{ github.event_name == 'push' }}
     needs: verify
