@@ -56,6 +56,6 @@ data ibm_resource_instance hpcs_instance {
 
 resource null_resource print_extensions {
   provisioner "local-exec" {
-    command = "echo 'Extensions: ${jsonencode(data.ibm_resource_instance.hpcs_instance.extensions)}'"
+    command = "echo 'Extensions: ${jsonencode(data.ibm_resource_instance.hpcs_instance[0].extensions)}'"
   }
 }
