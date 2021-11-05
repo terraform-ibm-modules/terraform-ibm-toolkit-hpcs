@@ -3,5 +3,4 @@ module "resource_group" {
 
   resource_group_name = var.hpcs_resource_group_name
   provision           = false
-  ibmcloud_api_key    = var.ibmcloud_api_key
 }

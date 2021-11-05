@@ -6,6 +6,9 @@ tags:
     - vault
 versions:
 - platforms: []
+  providers:
+    - name: ibm
+      source: "ibm-cloud/ibm"
   dependencies:
     - id: resource_group
       refs:
@@ -22,7 +25,5 @@ versions:
       scope: global
     - name: name
       scope: module
-    - name: ibmcloud_api_key
-      scope: global
     - name: private_endpoint
       scope: global
