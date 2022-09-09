@@ -2,9 +2,6 @@
 
 Provisions an instance of hpcs in the account.
 
-**Note:** This module follows the Terraform conventions regarding how provider configuration is defined within the Terraform template and passed into the module - https://www.terraform.io/docs/language/modules/develop/providers.html. The default provider configuration flows through to the module. If different configuration is required for a module, it can be explicitly passed in the `providers` block of the module - https://www.terraform.io/docs/language/modules/develop/providers.html#passing-providers-explicitly.
-
-
 ## Example usage
 
 ```terraform-hcl
