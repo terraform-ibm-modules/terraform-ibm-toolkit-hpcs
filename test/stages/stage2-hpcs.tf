@@ -5,7 +5,7 @@ module "dev_hpcs" {
   region                 = var.hpcs_region
   name                   = var.hpcs_name
   name_prefix            = var.name_prefix
-  provision              = false
+  provision              = true
   number_of_crypto_units = 2
 }
 
