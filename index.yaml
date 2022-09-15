@@ -1,4 +1,4 @@
-id: github.com/cloud-native-toolkit/terraform-ibm-hpcs
+id: github.com/terraform-ibm-modules/terraform-ibm-toolkit-hpcs
 name: hpcs
 type: terraform
 description: Module to provision Hyper Protect Crypto Service in an IBM Cloud account
@@ -9,12 +9,104 @@ versions:
   - platforms: []
     providers:
       - name: ibm
-        source: "ibm-cloud/ibm"
+        source: ibm-cloud/ibm
     dependencies:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
+    variables:
+      - name: resource_group_name
+        type: string
+        description: Resource group where the cluster has been provisioned.
+        moduleRef:
+          id: resource_group
+          output: name
+      - name: name_prefix
+        type: string
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
+        scope: global
+      - name: region
+        type: string
+        description: Geographic location of the resource (e.g. us-south, us-east)
+        scope: global
+      - name: plan
+        type: string
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
+        default: standard
+      - name: private_endpoint
+        type: string
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
+        scope: global
+      - name: tags
+        type: list(string)
+        description: Tags that should be applied to the service
+        default: []
+      - name: number_of_crypto_units
+        type: number
+        description: No of crypto units that has to be attached to the instance.
+        default: '2'
+      - name: provision
+        type: bool
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
+        default: false
+      - name: name
+        type: string
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
+        scope: module
+      - name: label
+        type: string
+        description: The label that will be used to generate the name from the name_prefix.
+        default: hpcs
+      - name: skip
+        type: bool
+        description: >-
+          Flag indicating that the logic should be skipped (i.e. don't do
+          anything)
+        default: false
+    version: v1.5.1
+    outputs:
+      - name: id
+        description: The id of the provisioned HPCS instance.
+      - name: guid
+        description: The id of the provisioned HPCS instance.
+      - name: name
+        description: The name of the provisioned HPCS instance.
+      - name: crn
+        description: The id of the provisioned HPCS instance
+      - name: location
+        description: The location of the provisioned HPCS instance
+      - name: service
+        description: The name of the key provisioned for the HPCS instance
+      - name: label
+        description: The label for the redis instance
+      - name: public_url
+        description: The public endpoint for the resource
+      - name: private_url
+        description: The private endpoint for the resource
+  - platforms: []
+    providers:
+      - name: ibm
+        source: ibm-cloud/ibm
+    dependencies:
+      - id: resource_group
+        refs:
+          - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -29,24 +121,33 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -61,7 +162,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
       - name: label
@@ -71,7 +174,9 @@ versions:
         optional: true
       - name: skip
         type: bool
-        description: Flag indicating that the logic should be skipped (i.e. don't do anything)
+        description: >-
+          Flag indicating that the logic should be skipped (i.e. don't do
+          anything)
         default: false
         optional: true
     version: v1.5.0
@@ -99,7 +204,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -114,14 +219,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -130,12 +240,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -150,7 +264,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
       - name: label
@@ -160,7 +276,9 @@ versions:
         optional: true
       - name: skip
         type: bool
-        description: Flag indicating that the logic should be skipped (i.e. don't do anything)
+        description: >-
+          Flag indicating that the logic should be skipped (i.e. don't do
+          anything)
         default: false
         optional: true
     version: v1.4.0
@@ -188,7 +306,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -203,14 +321,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -219,12 +342,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -239,7 +366,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
       - name: label
@@ -262,13 +391,15 @@ versions:
       - name: service
         description: The name of the key provisioned for the HPCS instance
       - name: label
-        description: Flag indicating that the logic should be skipped (i.e. don't do anything)
+        description: >-
+          Flag indicating that the logic should be skipped (i.e. don't do
+          anything)
   - platforms: []
     dependencies:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -283,14 +414,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -299,12 +435,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -319,7 +459,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
       - name: label
@@ -348,7 +490,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -363,14 +505,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -379,12 +526,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -399,7 +550,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
       - name: label
@@ -426,7 +579,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -441,14 +594,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -457,12 +615,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -477,7 +639,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
     version: v1.1.5
@@ -491,7 +655,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -506,14 +670,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -522,12 +691,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -542,7 +715,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
     version: v1.1.4
@@ -552,7 +727,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -567,14 +742,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -583,12 +763,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -603,7 +787,9 @@ versions:
         optional: true
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
     version: v1.1.3
@@ -613,7 +799,7 @@ versions:
       - id: resource_group
         refs:
           - source: github.com/cloud-native-toolkit/terraform-ibm-resource-group
-            version: ">= 2.1.0"
+            version: '>= 2.1.0'
     variables:
       - name: resource_group_name
         moduleRef:
@@ -628,14 +814,19 @@ versions:
       - name: name_prefix
         scope: global
         type: string
-        description: The prefix name for the service. If not provided it will default to the resource group name
-        default: ""
+        description: >-
+          The prefix name for the service. If not provided it will default to
+          the resource group name
+        default: ''
         optional: true
       - name: name
         scope: module
         type: string
-        description: The name that should be used for the service, particularly when connecting to an existing service. If not provided then the name will be defaulted to {name prefix}-{service}
-        default: ""
+        description: >-
+          The name that should be used for the service, particularly when
+          connecting to an existing service. If not provided then the name will
+          be defaulted to {name prefix}-{service}
+        default: ''
         optional: true
       - name: ibmcloud_api_key
         scope: global
@@ -644,12 +835,16 @@ versions:
       - name: private_endpoint
         scope: global
         type: string
-        description: Flag indicating that the service should be created with private endpoints
-        default: "true"
+        description: >-
+          Flag indicating that the service should be created with private
+          endpoints
+        default: 'true'
         optional: true
       - name: plan
         type: string
-        description: The type of plan the service instance should run under (tiered-pricing)
+        description: >-
+          The type of plan the service instance should run under
+          (tiered-pricing)
         default: standard
         optional: true
       - name: tags
@@ -662,7 +857,9 @@ versions:
         description: No of crypto units that has to be attached to the instance.
       - name: provision
         type: bool
-        description: Flag indicating that hpcs instance should be provisioned. If 'false' then the instance is expected to already exist.
+        description: >-
+          Flag indicating that hpcs instance should be provisioned. If 'false'
+          then the instance is expected to already exist.
         default: false
         optional: true
     version: v1.1.2
