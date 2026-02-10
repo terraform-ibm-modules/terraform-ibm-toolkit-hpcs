@@ -1,5 +1,7 @@
 # HPCS terraform module
 
+:warning: This module is no longer maintained. Please use [terraform-ibm-hpcs](https://github.com/terraform-ibm-modules/terraform-ibm-hpcs) for configuring IBM Cloud Hyper Protect Crypto Services.
+
 Provisions an instance of hpcs in the account.
 
 ## Example usage
